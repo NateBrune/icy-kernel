@@ -1,7 +1,7 @@
 
 all:
-	make -C "helloworld" all
+	make -C "MemoryDump" all
 
 clean:
-	make -C "helloworld" clean
+	make -C "MemoryDump" clean
 

@@ -1,5 +1,5 @@
 SDKDIR=../../sdk
-TARGET = editmem
+TARGET = begin
 OBJS=main.o
 
 include $(SDKDIR)/build.mak

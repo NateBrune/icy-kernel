@@ -28,27 +28,27 @@ static void load_modules(multiboot_info* mbi){
 /* le main du noyau */
 extern "C" void kmain(multiboot_info* mbi){
 	io.clear();
-	io.print("%s - %s -- %s %s \n",	KERNEL_NAME,
-									KERNEL_VERSION,
-									KERNEL_DATE,
-									KERNEL_TIME);
+	//io.print("%s - %s -- %s %s \n",	KERNEL_NAME,
+	//								KERNEL_VERSION,
+	//								KERNEL_DATE,
+	//								KERNEL_TIME);
 	
-	io.print("%s \n",KERNEL_LICENCE);
+	//io.print("%s \n",KERNEL_LICENCE);
 	arch.init();
 	
-	io.print("Loading Virtual Memory Management \n");
+	//io.print("Loading Virtual Memory Management \n");
 	vmm.init(mbi->high_mem);
 	
-	io.print("Loading FileSystem Management \n");
+	//io.print("Loading FileSystem Management \n");
 	fsm.init();
 	
-	io.print("Loading syscalls interface \n");
+	//io.print("Loading syscalls interface \n");
 	syscall.init();
 	
-	io.print("Loading system \n");
+	//io.print("Loading system \n");
 	sys.init();
 	
-	io.print("Loading modules \n");
+	//io.print("Loading modules \n");
 	modm.init();
 	modm.initLink();
 
@@ -61,19 +61,16 @@ extern "C" void kmain(multiboot_info* mbi){
 
 	arch.initProc();
 	
-	io.print("Loading binary modules \n");
-	load_modules(mbi);
-	
+	//io.print("Loading binary modules \n");
+	load_modules(mbi);	
 	fsm.link("/mnt/boot/bin/","/bin/");
-
-	
-	io.print("\n");
-	io.print("  ==== System is ready (%s - %s) ==== \n",KERNEL_DATE,KERNEL_TIME);
+	//io.clear();
+	//io.print("  ==== System is ready (%s - %s) ==== \n",KERNEL_DATE,KERNEL_TIME);
 	arch.enable_interrupt();
-	char* hello_argv[1] ={"Hi"};
-	execv("/bin/sh",1, hello_argv);
-	io.print("\n");
-	for(;;){}
+	io.clear();
+	char* dumper_args[1] ={"dumper"};
+	execv("/bin/begin",1, dumper_args);
+	//io.print("\nFinished.\nShutting Down.\n\n");
 	arch.shutdown();
 }
 
